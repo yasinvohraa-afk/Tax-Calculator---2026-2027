@@ -127,7 +127,53 @@ st.write(" ")
 # --- CALL TO ACTION LEAD CAPTURE FORM ---
 st.markdown("<div class='section-header'>📞 Need Expert Assistance? Request a Free Consultation</div>", unsafe_allow_html=True)
 
+import requests  # Put this line at the very top of your app.py file
+
+# --- CALL TO ACTION LEAD CAPTURE FORM ---
+st.markdown("<div class='section-header'>📞 Need Expert Assistance? Request a Free Consultation</div>", unsafe_allow_html=True)
+
+# PASTE YOUR WEB3FORMS ACCESS KEY HERE
+YOUR_ACCESS_KEY = "PASTE_YOUR_ACCESS_KEY_HERE"
+
 with st.form("consultation_form", clear_on_submit=True):
+    c_col1, c_col2 = st.columns(2)
+    with c_col1:
+        full_name = st.text_input("Full Name *", placeholder="Enter your full name")
+        email = st.text_input("Email Address *", placeholder="name@example.com")
+    with c_col2:
+        phone = st.text_input("Phone / WhatsApp Number *", placeholder="e.g., 03001234567")
+        service_needed = st.selectbox(
+            "Service Required *",
+            ["Select a service...", "NTN & Business Registration", "Income Tax Return Filing", "Corporate Compliance Outsourcing", "Other Tax Consultation"]
+        )
+    
+    additional_notes = st.text_area("Briefly describe your tax situation or inquiry:", placeholder="Optional details...")
+    
+    submit_button = st.form_submit_button("Submit Request Now")
+    
+    if submit_button:
+        if not full_name or not email or not phone or service_needed == "Select a service...":
+            st.error("⚠️ Please fill in all required fields (*) before submitting.")
+        else:
+            # Package data for the email notification
+            payload = {
+                "access_key": YOUR_ACCESS_KEY,
+                "name": full_name,
+                "email": email,
+                "phone": phone,
+                "subject": f"New Tax Lead: {service_needed}",
+                "message": f"Service Requested: {service_needed}\nPhone: {phone}\nEmail: {email}\nNotes: {additional_notes}"
+            }
+            
+            # Send the data to Web3Forms API
+            try:
+                response = requests.post("https://web3forms.com", data=payload)
+                if response.status_code == 200:
+                    st.success(f"✔️ Thank you, {full_name}! Your request has been sent successfully. Our corporate tax consultant will reach out to you on {phone} within 24 hours.")
+                else:
+                    st.error("⚠️ System busy. Please try again or contact us directly.")
+            except Exception as e:
+                st.error("⚠️ Connection error. Please verify your internet and try again.")
     c_col1, c_col2 = st.columns(2)
     with c_col1:
         full_name = st.text_input("Full Name *", placeholder="Enter your full name")
