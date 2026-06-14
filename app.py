@@ -173,7 +173,7 @@ with st.form("consultation_form", clear_on_submit=True):
                 st.error("⚠️ Connection error. Please verify your internet and try again.")
         if not full_name or not email or not phone or service_needed == "Select a service...":
             st.error("⚠️ Please fill in all required fields (*) before submitting.")
-        elif YOUR_ACCESS_KEY == "xrevrpqp":
+        elif YOUR_ACCESS_KEY == xrevrpqp:
             st.error("⚠️ Setup Incomplete: Please replace the placeholder key in your app.py file with your actual Web3Forms access key.")
         else:
             # Package data for the email notification
