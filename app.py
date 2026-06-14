@@ -129,7 +129,7 @@ st.write(" ")
 st.markdown("<div class='section-header'>📞 Need Expert Assistance? Request a Free Consultation</div>", unsafe_allow_html=True)
 
 # PASTE YOUR WEB3FORMS ACCESS KEY HERE
-YOUR_ACCESS_KEY = "66dcd983-c9d0-4608-b61a-64dbef45372b"
+FORMSPREE_ID = "xrevrpqp"
 
 with st.form("consultation_form", clear_on_submit=True):
     c_col1, c_col2 = st.columns(2)
@@ -150,12 +150,35 @@ with st.form("consultation_form", clear_on_submit=True):
     if submit_button:
         if not full_name or not email or not phone or service_needed == "Select a service...":
             st.error("⚠️ Please fill in all required fields (*) before submitting.")
-        elif YOUR_ACCESS_KEY == "PASTE_YOUR_ACCESS_KEY_HERE":
+        elif FORMSPREE_ID == "xbjnqwdz":
+            st.error("⚠️ Setup Incomplete: Please replace the placeholder ID with your actual Formspree ID.")
+        else:
+            # Package data for Formspree
+            payload = {
+                "name": full_name,
+                "email": email,
+                "phone": phone,
+                "service": service_needed,
+                "message": additional_notes
+            }
+            
+            # Send data to Formspree API
+            try:
+                response = requests.post(f"https://formspree.io{FORMSPREE_ID}", json=payload)
+                if response.status_code == 200:
+                    st.success(f"✔️ Thank you, {full_name}! Your request has been sent successfully. Our corporate tax consultant will reach out to you on {phone} within 24 hours.")
+                else:
+                    st.error("⚠️ Submission rejected. Please check your Formspree ID or try again.")
+            except Exception as e:
+                st.error("⚠️ Connection error. Please verify your internet and try again.")
+        if not full_name or not email or not phone or service_needed == "Select a service...":
+            st.error("⚠️ Please fill in all required fields (*) before submitting.")
+        elif YOUR_ACCESS_KEY == "xrevrpqp":
             st.error("⚠️ Setup Incomplete: Please replace the placeholder key in your app.py file with your actual Web3Forms access key.")
         else:
             # Package data for the email notification
             payload = {
-                "access_key": YOUR_ACCESS_KEY,
+                "access_key": xrevrpqp,
                 "name": full_name,
                 "email": email,
                 "phone": phone,
