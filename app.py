@@ -162,7 +162,7 @@ with st.form("consultation_form", clear_on_submit=True):
             
             # Send data to Formspree API
             try:
-                response = requests.post(f"https://formspree.io/f/{FORMSPREE_ID}", json=payload)
+                response = requests.post("https://formspree.io", json=payload)
                 if response.status_code == 200:
                     st.success(f"✔️ Thank you, {full_name}! Your request has been sent successfully. Our corporate tax consultant will reach out to you on {phone} within 24 hours.")
                 else:
