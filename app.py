@@ -150,8 +150,6 @@ with st.form("consultation_form", clear_on_submit=True):
     if submit_button:
         if not full_name or not email or not phone or service_needed == "Select a service...":
             st.error("⚠️ Please fill in all required fields (*) before submitting.")
-        elif FORMSPREE_ID == "xbjnqwdz":
-            st.error("⚠️ Setup Incomplete: Please replace the placeholder ID with your actual Formspree ID.")
         else:
             # Package data for Formspree
             payload = {
@@ -164,32 +162,10 @@ with st.form("consultation_form", clear_on_submit=True):
             
             # Send data to Formspree API
             try:
-                response = requests.post(f"https://formspree.io{FORMSPREE_ID}", json=payload)
+                response = requests.post(f"https://formspree.io/f/{FORMSPREE_ID}", json=payload)
                 if response.status_code == 200:
                     st.success(f"✔️ Thank you, {full_name}! Your request has been sent successfully. Our corporate tax consultant will reach out to you on {phone} within 24 hours.")
                 else:
                     st.error("⚠️ Submission rejected. Please check your Formspree ID or try again.")
-            except Exception as e:
-                st.error("⚠️ Connection error. Please verify your internet and try again.")
-        if not full_name or not email or not phone or service_needed == "Select a service...":
-            st.error("⚠️ Please fill in all required fields (*) before submitting.")
-        else:
-            # Package data for the email notification
-            payload = {
-                "access_key": xrevrpqp,
-                "name": full_name,
-                "email": email,
-                "phone": phone,
-                "subject": f"New Tax Lead: {service_needed}",
-                "message": f"Service Requested: {service_needed}\nPhone: {phone}\nEmail: {email}\nNotes: {additional_notes}"
-            }
-            
-            # Send data to Web3Forms API
-            try:
-                response = requests.post("https://web3forms.com", data=payload)
-                if response.status_code == 200:
-                    st.success(f"✔️ Thank you, {full_name}! Your request has been sent successfully. Our corporate tax consultant will reach out to you on {phone} within 24 hours.")
-                else:
-                    st.error("⚠️ System busy. Please try again or contact us directly.")
-            except Exception as e:
+            except Exception:
                 st.error("⚠️ Connection error. Please verify your internet and try again.")
