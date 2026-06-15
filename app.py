@@ -8,7 +8,7 @@ SMTP_SERVER = "smtp-relay.brevo.com"
 SMTP_PORT = 587
 USERNAME = st.secrets["brevo_username"]
 PASSWORD = st.secrets["brevo_password"]
-RECEIVER_EMAIL = "your_inbox@example.com"   # Where you want to receive queries
+RECEIVER_EMAIL = "yasin.vohraa@gmail.com"   # Where you want to receive queries
 
 st.set_page_config(
     page_title="FBR Pakistan Salary Tax Calculator FY 2026-27",
