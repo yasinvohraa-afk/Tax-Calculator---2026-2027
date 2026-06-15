@@ -68,7 +68,7 @@ google_form_url = "https://docs.google.com/forms/d/e/1FAIpQLSe-x4irjrk5xdrTLy_aY
 
 st.markdown(
     f"""
-    👉 [Click here to submit your query via Google Form]({https://docs.google.com/forms/d/e/1FAIpQLSe-x4irjrk5xdrTLy_aYNxE_vZsGXr-9QjIHGmhdfgIp8v5pw/viewform?usp=header})
+    👉 [Click here to submit your query via Google Form]({google_form_url})
     
     *Your query will be securely collected in Google Sheets, and you’ll receive confirmation via email if notifications are enabled.*
     """)
